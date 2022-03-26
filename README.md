@@ -6,6 +6,7 @@ API-Server:
 1. Users can register, login (access token generated). 
 2. CRUD APIs for users, products, orders, cart.
 3. JWT Token Verifying for admin and user specific requests.
+
 Client side:
 1. App components uses react, styled-components, react-redux.
 
