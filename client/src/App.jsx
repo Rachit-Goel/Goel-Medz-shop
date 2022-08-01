@@ -37,6 +37,7 @@ const App = () => {
         <Route path="/register">
           {user ? <Redirect to="/" /> : <Register />}
         </Route>
+        {/* <Route path="/logout">{<Redirect to="/" /> }</Route> */}
       </Switch>
     </Router>
   );

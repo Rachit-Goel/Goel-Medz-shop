@@ -15,6 +15,7 @@ router.post("/", verifyToken, async (req, res) => {
   try {
     const savedOrder = await newOrder.save();
     res.status(200).json(savedOrder);
+    console.log("post-orders/ call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -31,6 +32,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
       { new: true }
     );
     res.status(200).json(updatedOrder);
+    console.log("put-orders/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -41,6 +43,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     await Order.findByIdAndDelete(req.params.id);
     res.status(200).json("Order has been deleted...");
+    console.log("delete-orders/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -51,6 +54,7 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.params.userId });
     res.status(200).json(orders);
+    console.log("post-orders/find/:userId call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -62,6 +66,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const orders = await Order.find();
     res.status(200).json(orders);
+    console.log("get-orders/ call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -99,6 +104,7 @@ router.get("/income", verifyTokenAndAdmin, async (req, res) => {
       },
     ]);
     res.status(200).json(income);
+    console.log("get-orders/income call success");
   } catch (err) {
     res.status(500).json(err);
   }

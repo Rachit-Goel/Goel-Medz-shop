@@ -15,6 +15,7 @@ router.post("/", verifyTokenAndAdmin, async (req, res) => {
   try {
     const savedProduct = await newProduct.save();
     res.status(200).json(savedProduct);
+    console.log("get-products/ call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -31,6 +32,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
       { new: true }
     );
     res.status(200).json(updatedProduct);
+    console.log("put-products/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -41,6 +43,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
     res.status(200).json("Product has been deleted...");
+    console.log("delete-products/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -51,6 +54,7 @@ router.get("/find/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     res.status(200).json(product);
+    console.log("get-products/find/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -76,6 +80,7 @@ router.get("/", async (req, res) => {
     }
 
     res.status(200).json(products);
+    console.log("get-products/ call success");
   } catch (err) {
     res.status(500).json(err);
   }

@@ -9,6 +9,7 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -108,11 +109,31 @@ const Footer = () => {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Ayurvedic</ListItem>
-          <ListItem>Baby Care</ListItem>
-          <ListItem>Nutrition</ListItem>
+          <ListItem>
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>  
+              Home
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/cart" style={{ color: 'inherit', textDecoration: 'inherit' }}>  
+              Cart
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/products/Ayurvedic" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+              Ayurvedic
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/products/Baby Care" style={{ color: 'inherit', textDecoration: 'inherit' }}>  
+              Baby Care
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/products/Nutritional Supplement" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+              Nutritional Supplement
+            </Link>
+          </ListItem>
           <ListItem>My Account</ListItem>
           <ListItem>Order Tracking</ListItem>
           <ListItem>Wishlist</ListItem>

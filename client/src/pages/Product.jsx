@@ -7,7 +7,8 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { saveCart } from "../redux/apiCalls";
 
 const Container = styled.div``;
 
@@ -129,9 +130,10 @@ const Product = () => {
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("");
+  // const [color, setColor] = useState("");
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -155,11 +157,13 @@ const Product = () => {
     dispatch(
       addProduct({ ...product, quantity, size })
     );
+    console.log("user from product ", user)
+    saveCart(dispatch, { "userId":user._id, "products":[{"productId": product._id, "quantity": quantity}] }, user);
   };
   return (
     <Container>
       <Navbar />
-      <Announcement />
+      {/* <Announcement /> */}
       <Wrapper>
         <ImgContainer>
           <Image src={product.img} />
@@ -188,7 +192,7 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Newsletter />
+      {/* <Newsletter /> */}
       <Footer />
     </Container>
   );

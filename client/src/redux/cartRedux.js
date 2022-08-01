@@ -13,6 +13,14 @@ const cartSlice = createSlice({
       state.products.push(action.payload);
       state.total += action.payload.price * action.payload.quantity;
     },
+    addProducts: (state, action) => {
+      action.payload.forEach((product) => {
+        state.quantity += product.quantity;
+        state.products.push(product);
+        state.total += product.price * product.quantity;
+      })
+      
+    },
   },
 });
 

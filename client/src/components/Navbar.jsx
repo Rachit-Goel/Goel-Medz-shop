@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+// import { store, persistor } from "../redux/store";
 
 const Container = styled.div`
   height: 60px;
@@ -57,14 +58,38 @@ const Right = styled.div`
   ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 const MenuItem = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
+const Button = styled.button`
+  /* width: 40%; */
+  border: none;
+  /* padding: 15px 20px; */
+  background-color: white;
+  color: #000000;
+  cursor: pointer;
+  /* margin-bottom: 10px; */
+  /* &:disabled {
+    color: green;
+    cursor: not-allowed;
+  } */
+`;
+
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.user.currentUser);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    console.log("clicked");
+    await localStorage.removeItem("persist:root");
+    console.log("flushed");
+    window.location.reload()
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -80,9 +105,30 @@ const Navbar = () => {
         </Center>
 
         <Right>
-          <MenuItem>Register</MenuItem>
-          <MenuItem>Sign In</MenuItem>
-          <Link to="/cart">
+          <>
+            {user ? 
+              <>
+                
+                  <MenuItem>
+                    <Button onClick={handleClick}>
+                      Sign Out
+                    </Button>
+                  </MenuItem>
+                
+              </>
+              :
+              <>
+                <Link to="/register" style={{ textDecoration: 'none' }}>
+                  <MenuItem>Register</MenuItem>
+                </Link>
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                  <MenuItem>Sign In</MenuItem>
+                </Link>
+              </>
+            }
+          </>
+
+          <Link to="/cart" style={{ textDecoration: 'none' }}>
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />

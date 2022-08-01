@@ -36,6 +36,7 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       { new: true }
     );
     res.status(200).json(updatedUser);
+    console.log("put-users/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -46,6 +47,7 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted...");
+    console.log("delete-users/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -57,6 +59,7 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
     res.status(200).json(others);
+    console.log("get-users/find/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -70,6 +73,7 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
       ? await User.find().sort({ _id: -1 }).limit(5)
       : await User.find();
     res.status(200).json(users);
+    console.log("get-users/ call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -97,6 +101,7 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
       },
     ]);
     res.status(200).json(data)
+    console.log("get-users/stats call success");
   } catch (err) {
     res.status(500).json(err);
   }

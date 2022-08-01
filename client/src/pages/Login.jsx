@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { login } from "../redux/apiCalls";
+import { login, getCart } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -73,10 +73,19 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
+  // const user = useSelector((state) => state.user.currentUser);
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
-    login(dispatch, { username, password });
+    try {
+      let data = await login(dispatch, { username, password })
+      data = JSON.parse(JSON.stringify(data))
+      console.log(data)
+      console.log("currentUser = ",data )
+      await getCart(dispatch, data);
+    } catch (error) {
+      console.log(error)
+    }
   };
   return (
     <Container>
