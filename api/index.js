@@ -23,10 +23,10 @@ mongoose
     console.log(err);
   });
 
-// app.get("/api/test", (req,res)=>{
-//   console.log("test api successfull");
-//   res.send("test api success");
-// });
+app.get("/", (req,res)=>{
+  console.log("API server is running");
+  res.send("API server is running");
+});
 
 app.use(cors());
 app.use(express.json());
