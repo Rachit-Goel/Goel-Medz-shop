@@ -20,7 +20,7 @@ export const login = async (dispatch, user) => {
 export const getCart = async (dispatch, user) => {
   try {
     // const res = await userRequest.get(`/carts/find/${user._id}`);
-    const res = await axios.get(`http://goel-medz-shop.herokuapp.com/api/carts/find/${user._id}`, {
+    const res = await axios.get(`https://goel-medz-shop.herokuapp.com/api/carts/find/${user._id}`, {
       headers: {
         token: 'Bearer ' + user.accessToken
       }
@@ -44,7 +44,7 @@ export const getCart = async (dispatch, user) => {
 
 export const saveCart = async (dispatch, cartdata, user) => {
   try {
-    await axios.post("http://goel-medz-shop.herokuapp.com/api/carts/", cartdata, {
+    await axios.post("https://goel-medz-shop.herokuapp.com/api/carts/", cartdata, {
       headers: {
         token: 'Bearer ' + user.accessToken
       }
