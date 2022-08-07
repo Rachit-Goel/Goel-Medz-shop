@@ -1,5 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -7,8 +7,9 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
-import { userRequest } from "../requestMethods";
+import { publicRequest } from "../requestMethods";
 import { useHistory } from "react-router";
+import { deleteProduct, incProductQuantity, decProductQuantity } from "../redux/cartRedux";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -170,8 +171,10 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -180,18 +183,43 @@ const Cart = () => {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest.post("/checkout/payment", {
+        const res = await publicRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
           amount: 500,
+        },
+        {
+          headers: {
+            token: "Bearer " + currentUser.accessToken,
+          },
         });
         history.push("/success", {
           stripeData: res.data,
-          products: cart,
+          cart: cart,
         });
       } catch {}
     };
     stripeToken && makeRequest();
+    // eslint-disable-next-line
   }, [stripeToken, cart.total, history]);
+
+  const handleQuantity = async (type, prod) => {
+    if (type === "dec") {
+      if(prod.quantity === 1){
+        await dispatch( deleteProduct({ "id": prod._id, "price": prod.price }) );
+        console.log("cart product deleted for id = ", prod._id)
+      }
+      else{
+        await dispatch( decProductQuantity({ "id": prod._id, "price": prod.price }) );
+        console.log("product qty decreased for id = ", prod._id)
+      }
+    } 
+    else {
+      await dispatch( incProductQuantity({ "id": prod._id, "price": prod.price }) );
+      console.log("product qty increased for id = ", prod._id)
+      // saveCart(dispatch, { "userId":user._id, "products":[{"productId": product._id, "quantity": quantity}] }, user);
+    }
+  };
+
   return (
     <Container>
       <Navbar />
@@ -227,9 +255,9 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <Add />
+                    <Add onClick={() => handleQuantity("inc", product)} />
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
+                    <Remove onClick={() => handleQuantity("dec", product)} />
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}

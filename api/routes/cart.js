@@ -39,9 +39,19 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 //DELETE
+router.delete("/product/:id", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    // await Cart.deleteMany({ userId: req.params.id, products: [productId: req.body.pid] });
+    res.status(200).json("product from cart has been deleted...");
+    console.log("delete-carts/product/:id call success");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    await Cart.findByIdAndDelete(req.params.id);
+    await Cart.deleteMany({ userId: req.params.id });
     res.status(200).json("Cart has been deleted...");
     console.log("delete-carts/:id call success");
   } catch (err) {
@@ -50,11 +60,11 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
 });
 
 //GET USER CART
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const cart = await Cart.find({ userId: req.params.userId });
+    const cart = await Cart.find({ userId: req.params.id });
     res.status(200).json(cart);
-    console.log("get-carts/find/:userId call success");
+    console.log("get-carts/find/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }

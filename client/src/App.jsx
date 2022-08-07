@@ -4,6 +4,7 @@ import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
+import Orders from "./pages/Orders";
 import {
   BrowserRouter as Router,
   Switch,
@@ -34,6 +35,7 @@ const App = () => {
           <Success />
         </Route>
         <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+        <Route path="/orders">{user ? <Orders /> : <Redirect to="/" />}</Route>
         <Route path="/register">
           {user ? <Redirect to="/" /> : <Register />}
         </Route>

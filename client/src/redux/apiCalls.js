@@ -1,6 +1,6 @@
 import { loginFailure, loginStart, loginSuccess } from "./userRedux";
-import { addProduct } from "./cartRedux";
-import { publicRequest, userRequest } from "../requestMethods";
+import { addProduct, emptyCart } from "./cartRedux";
+import { publicRequest } from "../requestMethods";
 import axios from "axios";
 
 export const login = async (dispatch, user) => {
@@ -54,13 +54,30 @@ export const saveCart = async (dispatch, cartdata, user) => {
   }
 };
 
-export const deleteCart = async (cartdata, user) => {
+export const deleteCart = async (dispatch, user) => {
   try {
-    await axios.delete("http://goel-medz-shop.herokuapp.com/api/carts/" + cartdata.product.productId, {
+    await axios.delete("https://goel-medz-shop.herokuapp.com/api/carts/" + user._id, {
       headers: {
         token: 'Bearer ' + user.accessToken
       }
     })
+    dispatch(emptyCart());
+  } catch (err) {
+    console.log("err in deleteCart", err)
+  }
+};
+
+export const deleteCartProduct = async (dispatch, pid, user) => {
+  try {
+    await axios.delete("https://goel-medz-shop.herokuapp.com/api/carts/" + user._id, {
+      headers: {
+        token: 'Bearer ' + user.accessToken
+      },
+      body: {
+        "pid" : pid
+      }
+    })
+    dispatch(emptyCart());
   } catch (err) {
     console.log("err in deleteCart", err)
   }

@@ -70,6 +70,7 @@ const Button = styled.button`
   /* padding: 15px 20px; */
   background-color: white;
   color: #000000;
+  font-size: 16px;
   cursor: pointer;
   /* margin-bottom: 10px; */
   /* &:disabled {
@@ -101,34 +102,38 @@ const Navbar = () => {
         </Left>
 
         <Center>
-          <Logo>GOEL MEDZ.</Logo>
+          <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+            <Logo>GOEL MEDZ.</Logo>
+          </Link>
         </Center>
 
         <Right>
           <>
             {user ? 
               <>
-                
                   <MenuItem>
                     <Button onClick={handleClick}>
                       Sign Out
                     </Button>
                   </MenuItem>
+                  <Link to="/orders" style={{ color: 'inherit', textDecoration: 'inherit' }}>
+                    <MenuItem>Orders</MenuItem>
+                  </Link>
                 
               </>
               :
               <>
-                <Link to="/register" style={{ textDecoration: 'none' }}>
+                <Link to="/register" style={{ color: 'inherit', textDecoration: 'inherit' }}>
                   <MenuItem>Register</MenuItem>
                 </Link>
-                <Link to="/login" style={{ textDecoration: 'none' }}>
+                <Link to="/login" style={{ color: 'inherit', textDecoration: 'inherit' }}>
                   <MenuItem>Sign In</MenuItem>
                 </Link>
               </>
             }
           </>
 
-          <Link to="/cart" style={{ textDecoration: 'none' }}>
+          <Link to="/cart" style={{ color: 'inherit', textDecoration: 'inherit' }}>
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />

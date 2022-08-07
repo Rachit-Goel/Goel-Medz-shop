@@ -50,11 +50,11 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //GET USER ORDERS
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
+router.get("/find/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const orders = await Order.find({ userId: req.params.userId });
+    const orders = await Order.find({ userId: req.params.id });
     res.status(200).json(orders);
-    console.log("post-orders/find/:userId call success");
+    console.log("post-orders/find/:id call success");
   } catch (err) {
     res.status(500).json(err);
   }
@@ -62,7 +62,7 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
 
 // //GET ALL
 
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+router.get("/", verifyToken, async (req, res) => {
   try {
     const orders = await Order.find();
     res.status(200).json(orders);
