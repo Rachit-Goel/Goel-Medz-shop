@@ -20,7 +20,7 @@ export const login = async (dispatch, user) => {
 export const getCart = async (dispatch, user) => {
   try {
     // const res = await userRequest.get(`/carts/find/${user._id}`);
-    const res = await axios.get(`https://goel-medz-shop.herokuapp.com/api/carts/find/${user._id}`, {
+    const res = await axios.get(`https://ill-pear-walkingstick-shoe.cyclic.app/api/carts/find/${user._id}`, {
       headers: {
         token: 'Bearer ' + user.accessToken
       }
@@ -44,7 +44,7 @@ export const getCart = async (dispatch, user) => {
 
 export const saveCart = async (dispatch, cartdata, user) => {
   try {
-    await axios.post("https://goel-medz-shop.herokuapp.com/api/carts/", cartdata, {
+    await axios.post("https://ill-pear-walkingstick-shoe.cyclic.app/api/carts/", cartdata, {
       headers: {
         token: 'Bearer ' + user.accessToken
       }
@@ -56,7 +56,7 @@ export const saveCart = async (dispatch, cartdata, user) => {
 
 export const deleteCart = async (dispatch, user) => {
   try {
-    await axios.delete("https://goel-medz-shop.herokuapp.com/api/carts/" + user._id, {
+    await axios.delete("https://ill-pear-walkingstick-shoe.cyclic.app/api/carts/" + user._id, {
       headers: {
         token: 'Bearer ' + user.accessToken
       }
@@ -69,7 +69,7 @@ export const deleteCart = async (dispatch, user) => {
 
 export const deleteCartProduct = async (dispatch, pid, user) => {
   try {
-    await axios.delete("https://goel-medz-shop.herokuapp.com/api/carts/" + user._id, {
+    await axios.delete("https://ill-pear-walkingstick-shoe.cyclic.app/api/carts/" + user._id, {
       headers: {
         token: 'Bearer ' + user.accessToken
       },
