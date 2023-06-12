@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://goel-medz-shop.herokuapp.com/api/";
+const BASE_URL = "https://ill-pear-walkingstick-shoe.cyclic.app/api/";
 // const TOKEN =
 //   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user).currentUser
 //     .accessToken || "";
